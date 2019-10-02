@@ -10,6 +10,8 @@ class Post < BaseModel
     has_many comments : Comment
     has_many taggings : Tagging
     has_many tags : Tag, through: :taggings
+    has_many post_categories : PostCategory
+    has_many categories : Category, through: :post_categories
   end
 end
 

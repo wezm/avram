@@ -1,0 +1,2 @@
+class PostCategoryBox < BaseBox
+end

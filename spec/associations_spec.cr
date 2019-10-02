@@ -49,6 +49,26 @@ describe Avram::Model do
     end
   end
 
+  describe "has_many through with custom primary key" do
+    it "joins the two associations" do
+      category = CategoryBox.create
+      post = PostBox.create
+      _different_category = CategoryBox.create
+      PostCategoryBox.new.category_id(category.id).post_id(post.id).create
+
+      category.posts.should eq [post]
+    end
+
+    it "works when preloading" do
+      category = CategoryBox.create
+      post = PostBox.create
+      _different_category = CategoryBox.create
+      PostCategoryBox.new.category_id(category.id).post_id(post.id).create
+
+      CategoryQuery.new.name(category.name).preload_posts.first.posts.should eq [post]
+    end
+  end
+
   describe "has_one" do
     context "missing association" do
       it "raises if association is not nilable" do
